@@ -27,6 +27,8 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
     KmzService kmzService;
     @Autowired
     ChatServer chatServer;
+    @Autowired
+    SearchWeartherService searchWeartherService;
 
     @Override
     public Result sendPrivateMsg(PrivateMsg msg) {
@@ -43,6 +45,15 @@ public class PrivateMsgServiceImpl implements PrivateMsgService {
         if (MsgUtil.getMenu(raw_message) != null) {
             ReplyMsg replyMsg = new ReplyMsg();
             replyMsg.setReply(MsgUtil.getMenu(raw_message));
+            return replyMsg;
+        }
+
+        if (raw_message.contains("tq")) {
+            //　获取机器人回复
+            String res = searchWeartherService.searchWearther(raw_message);
+            // 封装进返回值
+            ReplyMsg replyMsg = new ReplyMsg();
+            replyMsg.setReply(res);
             return replyMsg;
         }
 

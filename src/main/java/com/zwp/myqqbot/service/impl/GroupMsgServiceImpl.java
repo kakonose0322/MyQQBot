@@ -31,6 +31,8 @@ public class GroupMsgServiceImpl implements GroupMsgService {
     KeywordService keywordService;
     @Autowired
     ChatServer chatServer;
+    @Autowired
+    SearchWeartherService searchWeartherService;
 
     @Override
     public Result sendGroupMsg(GroupMsg groupMsg) {
@@ -44,6 +46,15 @@ public class GroupMsgServiceImpl implements GroupMsgService {
 
         //关键词监控
         keywordService.getPrivateMsgOnKeyword(receiveMsg);
+
+        if (raw_message.contains("tq")) {
+            //　获取机器人回复
+            String res = searchWeartherService.searchWearther(raw_message);
+            // 封装进返回值
+            ReplyMsg replyMsg = new ReplyMsg();
+            replyMsg.setReply(res);
+            return replyMsg;
+        }
 
         if (raw_message.contains("Kano")) {
             //　获取机器人回复

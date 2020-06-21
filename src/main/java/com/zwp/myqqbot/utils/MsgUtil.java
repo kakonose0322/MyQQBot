@@ -39,6 +39,7 @@ public class MsgUtil {
      */
     public static boolean isKnownMsg(String raw_message) {
         String[] knownMsg = new String[]{
+                "tq",
                 "Kano",
                 "看妹子",
                 "垃圾分类", "增加垃圾",
@@ -58,6 +59,7 @@ public class MsgUtil {
         if (!isKnownMsg(raw_message)) {
             str.append("没听懂" + "\n");
             str.append("目前支持的指令有:" + "\n");
+            str.append("tq" + "\n");
             str.append("Kano" + "\n");
             str.append("看妹子" + "\n");
             str.append("垃圾分类" + "\n");
